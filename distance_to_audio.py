@@ -88,7 +88,7 @@ def run():
 
 		if distance1 < dist_range or distance2 < dist_range:
 		###Eventually add in conditional for FSR measure here
-			play("Audio/example.mp3")
+			play("Audio/extra_extra_short.mp3")
 
 	# Reset GPIO settings
 	GPIO.cleanup()  
