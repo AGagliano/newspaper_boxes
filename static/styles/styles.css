@@ -1,13 +1,40 @@
 
 
 .background {
-	width: 1024px;
-	height: 1280px;
+	width: 2048px;
+	height: 2732px;
 	background-color: #FBFBF4;
 	/*background-color: red;*/
 }
 
-.font {
+/*Font styling*/
+
+.font-color {
+	color: #4A4A4A;
+}
+
+.font-bad-subheader {
+	font-family: Garamond, Baskerville, "Baskerville Old Face", "Hoefler Text", "Times New Roman", serif;
+	font-size: 35px;
+	text-align: middle;
+}
+
+.font-bad-title1 {
+	font-family: Garamond, Baskerville, "Baskerville Old Face", "Hoefler Text", "Times New Roman", serif;
+	font-size: 80px;
+	font-weight: bold;
+}
+
+.font-bad-text1 {
+	font-family: Garamond, Baskerville, "Baskerville Old Face", "Hoefler Text", "Times New Roman", serif;
+	font-size: 35px;
+}
+
+.font-good {
+
+}
+
+.font-size-title1 {
 
 }
 
@@ -26,54 +53,74 @@
 	width: 75%;
 }
 
+.light-line {
+	background-color: #4A4A4A;;
+	width: 100%;
+	height: 2px;
+}
+
+.dark-line {
+	background-color: #4A4A4A;; 
+	width: 100%;
+	height: 4px;
+}
+
+.dark-line-short {
+	background-color: #4A4A4A;; 
+	width: 90%;
+	height: 3px;
+	margin-left: 5%;
+}
+
 /*Video section css*/
 .video-section {
 	width: 100%;
-	height: 400px;
-	background-color: gray;
+	height: 25%;
+	/*background-color: gray;*/
 }
 
 .video-stream-element {
-	width: 480px;
-	height: 394px;
+	width: 55%;
+	height: 95%;
 	float: left;
-	background-color: white;
-	margin: 5px;
+	/*background-color: white;*/
+	margin: 2.5%;
 }
 
 .video-text-element {
-	width: 400px;
-	height: 100%;
+	width: 35%;
+	height: 95%;
 	float: left;
-	background-color: white;
-	margin: 5px;
+	/*background-color: white;*/
+	margin: 2.5%;
+	padding: 0px;
 }
 
 
 /*Force and sound section css*/
 .force-and-sound-section {
 	width: 100%;
-	height: 600px;
-	background-color: gray;
+	height: 50%;
+	/*background-color: gray;*/
 	/*display: table;*/
 	/*display: inline-block;*/
 }
 
 .force-element {
 	width: 45%;
-	height: 90%;
-	background-color: white;
+	height: 95%;
+	/*background-color: white;*/
 	float: left;
-	margin: 5px;
+	margin: 2.5%;
 
 }
 
 .sound-element {
 	width: 45%;
-	height: 90%;
-	background-color: white;
+	height: 95%;
+	/*background-color: white;*/
 	float: left;
-	margin: 5px;
+	margin: 2.5%;
 }
 
 

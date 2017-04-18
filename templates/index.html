@@ -48,15 +48,17 @@
       // });
 
       var force = 0;
+      var sound = 0;
 
       $(setInterval(function getSensorData() { 
         $.getJSON($SCRIPT_ROOT + '/_get_time', function(data) {
           force = data.result['force'];
+          sound = data.result['sound'];
           $("#force").text(force);  
-          $("#sound").text(data.result['sound']);
+          $("#sound").text(sound);
         });
         // data.push(9);
-        data.push(force);
+        data.push(sound);
         data.shift();
         d3.select("#line_graph").remove();  //Remove the graph and then re-draw the line element. Maybe not that elegant? 
         graph.append("svg:path")
@@ -80,7 +82,7 @@
       /* tell the SVG path to be a thin blue line without any area fill */
       path {
         stroke: steelblue;
-        stroke-width: 1;
+        stroke-width: 3;
         fill: none;
       }
       
@@ -113,28 +115,44 @@
   <div class="background">
     <div class="header">
       <img id="datainquirer-logo" src="static/assets/DataInquirer_Header_3x.png" alt="Data-Inquirer">
+      <div>
+        <div class="light-line"></div>
+        <h class="font-bad-subheader">SUBHEADER GOES HERE</h>
+        <div class="dark-line"></div>
+      </div>
     </div>
     <div class="video-section">
       <div class="video-stream-element">
-        <iframe type=“text/html” frameborder=“0" width=“480” height=“394" src=“//video.nest.com/embedded/live/6FR8nDsu8X?autoplay=1” allowfullscreen></iframe>
+         <iframe allowfullscreen webkitallowfullscreen mozallowfullscreen src="https://video.nest.com/embedded/live/6FR8nDsu8X" frameborder="0" width="1080" height="607.5"></iframe> 
+         <!-- For no border: 720 width, 405 height -->
       </div>
-      <div class="video-text-element">Sample column text here
+      
+      <div class="video-text-element">
+        <h class="font-color font-bad-title1">Cameras Detect Immigrants</h>
+        <p class="font-bad-text1">text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text</p>
       </div>
 
     </div>
+    <div class="dark-line-short"></div>
     <!-- line -->
     <div class="force-and-sound-section">
-      <div class="force-element">Force element text
+      <div class="force-element">
+        <h class="font-color font-bad-title1">LOITERING DECREASES</h>
         <p>force: <span id="force">?</span></p>  
+        <p class="font-bad-text1">text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text</p>
 
       </div>
       <div class="sound-element">
-        <div>Sound element text</div>
-        <p>sound: <span id="sound">?</span></p> 
+        <h class="font-color font-bad-title1">PROTEST detection</h>
+        <p class="font-bad-text1">text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text</p>
         <div id="graph" class="aGraph" ></div>
       </div>
     </div>
-    
+    <div>
+        <div class="light-line"></div>
+        <h class="font-bad-subheader">For Security and Privacy Informaiton</h>
+        <div class="dark-line"></div>
+      </div>
   </div>
 
   <div>
@@ -150,9 +168,9 @@
       /* implementation heavily influenced by http://bl.ocks.org/1166403 */
       
       // define dimensions of graph
-      var m = [5, 5, 5, 5]; // margins
-      var w = 450 - m[1] - m[3]; // width
-      var h = 200 - m[0] - m[2]; // height
+      var m = [35, 35, 35, 35]; // margins
+      var w = 850 - m[1] - m[3]; // width
+      var h = 600 - m[0] - m[2]; // height
       
       // create a simple data array that we'll plot with a line (this array represents only the Y values, X will just be the index location)
       // var data = [3, 6, 2, 7, 5, 2, 0, 3, 8, 9, 2, 5, 9, 3, 6, 3, 6, 2, 7, 5, 2, 1, 3, 8, 9, 2, 5, 9, 2, 7];
