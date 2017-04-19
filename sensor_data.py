@@ -8,12 +8,15 @@
 #####################################################################################
 
 from random import randint
+import random
 
 def forceSensor():
 	'''
 	Gets and returns force sensor data
 	'''
-	val = randint(100, 199)  #Replace with Rasp. Pi code to get force sensor data
+	# val = randint(0, 1)  #Replace with Rasp. Pi code to get force sensor data
+	val = random.sample([1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0], 1)
+	# val = 1
 	return val
 
 def soundSensor():

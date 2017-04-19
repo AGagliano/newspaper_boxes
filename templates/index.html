@@ -33,8 +33,8 @@
     </script>
 
     <script>
+        // Initialize some data...maybe start with 0
         var data = [300, 600, 200, 700, 500, 200, 0, 3000, 800, 900, 200, 500, 900, 300, 600, 300, 600, 2000, 700, 500, 2000, 100, 300, 800, 900, 200, 3500, 900, 200, 700];
-        // drawChart(data);
     </script>
 
     <script type=text/javascript>
@@ -47,51 +47,98 @@
       //   });
       // });
 
+      //Set global variables so they can be updated in, but accessed outside of .getJSON
       var force_test = 0;
       var sound_test = 0;
       var sound = 0;
       var force = 0;
 
+      var startTime;
+
       $(setInterval(function getSensorData() { 
-        //~ $.getJSON($SCRIPT_ROOT + '/_get_time', function(data) {
-          //~ force_test = data.result['force'];
-          //~ sound_test = data.result['sound'];
-          //~ $("#force_test").text(force_test);  
-          //~ $("#sound_test").text(sound_test);
-        //~ });
-        $.getJSON($SCRIPT_ROOT + '/_get_sound', function(data) {
-          sound = data.result['sound'];  
-          $("#sound").text(sound);
+        // For local development without real sensors:
+        $.getJSON($SCRIPT_ROOT + '/_get_time', function(data) {
+          force_test_new = data.result['force'];
+          sound_test = data.result['sound'];
+          $("#force_test").text(force_test);  
+          $("#sound_test").text(sound_test);
+          // Might to only check every few iterations to remove noise
+          // If person steps on mat, start timer
+          if (force_test_new == 1 && force_test != 1) {
+            startTime = new Date()
+          };
+          force_test = force_test_new;
+          elapsedTime();
+          // setTimeout(display, 1000)
         });
-        //~ console.log('here1')
-        $.getJSON($SCRIPT_ROOT + '/_get_force', function(data) {
-          force = data.result['force_status'];
-          $("#force").text(force);
-        });
-        //~ console.log('here2')
-        // data.push(9);
-        data.push(sound);
+        // Get sound intensity data
+        // $.getJSON($SCRIPT_ROOT + '/_get_sound', function(data) {
+        //   sound = data.result['sound'];  
+        //   $("#sound").text(sound);
+        // });
+        // Get force on mat data
+        // $.getJSON($SCRIPT_ROOT + '/_get_force', function(data) {
+        //   force = data.result['force_status'];
+        //   $("#force").text(force);
+        // });
+        updateSoundGraph(sound)
+      }, 300) 
+      );
+
+      function updateSoundGraph(sound) {
+        data.push(9);
+        // data.push(sound);
         data.shift();
-        d3.select("#line_graph").remove();  //Remove the graph and then re-draw the line element. Maybe not that elegant? 
+        d3.select("#line_graph").remove();  //Remove the graph and then re-draw the line 
         graph.append("svg:path")
             .attr("id", "line_graph")
             .attr("d", line(data))
             .attr("transform", null)
             .transition()
             .attr("transform", "trans late(" + x(-1) + ")");
+      };
 
-        // graph.remove();
-        // graph.append("svg:path").attr("d", line(data));
-        return false;
-      }, 300) 
-      );
+      function elapsedTime() {
+            // later record end time
+            var endTime = new Date();
 
-      
+            // time difference in ms
+            var timeDiff = endTime - startTime;
+
+            // strip the miliseconds
+            timeDiff /= 1000;
+
+            // get seconds
+            var seconds = Math.round(timeDiff % 60);
+
+            // remove seconds from the date
+            timeDiff = Math.floor(timeDiff / 60);
+
+            // get minutes
+            var minutes = Math.round(timeDiff % 60);
+
+            // remove minutes from the date
+            timeDiff = Math.floor(timeDiff / 60);
+
+            // get hours
+            var hours = Math.round(timeDiff % 24);
+
+            // remove hours from the date
+            timeDiff = Math.floor(timeDiff / 24);
+
+            // the rest of timeDiff is number of days
+            var days = timeDiff;
+
+            $(".time").text(days + " days, " + hours + ":" + minutes + ":" + seconds);
+            return seconds;
+        };
+
     </script>
 
 
     <style>
-      /* tell the SVG path to be a thin blue line without any area fill */
+      /*Styling for the sound graph*/
+      /* tell the SVG path to be a blue line without any area fill */
       path {
         stroke: steelblue;
         stroke-width: 3;
@@ -117,6 +164,13 @@
       .y.axis line, .y.axis path {
         fill: none;
         stroke: #000;
+      }
+    </style>
+
+    <!-- Style for the pie chart -->
+    <style media="screen">
+      .arc-hour, .arc-minute, .arc-second{
+        shape-rendering:geometricPrecision;
       }
     </style>
 
@@ -167,8 +221,14 @@
       </div>
   </div>
 
+
+  <!-- Testing/debugging code -->
   <div>
     <h1>Automatically updating data</h1>
+    <p>force_test: <span id="force_test">?</span></p> 
+    <p>Time should be here:</p>
+    <div class="time"></div> 
+    <p>sound_test: <span id="sound_test">?</span></p> 
     <p>force: <span id="force">?</span></p>  
     <p>sound: <span id="sound">?</span></p> 
   </div> 
@@ -177,6 +237,7 @@
   
 
   <script>
+      // Defining and drawing sound chart
       /* implementation heavily influenced by http://bl.ocks.org/1166403 */
       
       // define dimensions of graph
@@ -240,7 +301,138 @@
         graph.append("svg:path")
           .attr("id", "line_graph") //added in to try give path a name to remove later
           .attr("d", line(data));  //svg:path is important here
-      
+
+
+      // Defining and drawing the time lapsed on mat chart
+      // Code heavily influenced by: http://bl.ocks.org/exakte-aesthetik/159def5c0e6534a039fb
+      var setupChart = {
+        "margin": {
+          "top": 10,
+          "right": 50,
+          "bottom": 10,
+          "left": 50
+        },
+        width:  function() {return 960 - this.margin.left - this.margin.right;},
+        height: function() {return 500 - this.margin.top - this.margin.bottom;},
+        radius: function() {return this.height()/2;},
+        "radiusRing": 45,
+        "ringDistance": 1,
+      };
+
+      var color = d3.scale.ordinal()
+      .range(["#2f4655", "#8a95a3", "#522c35", "#cca8b1", "#283b2f", "#9fb39f"]);
+
+      var time = setTime();
+
+      // Arcs
+      var drawArcHour = d3.svg.arc()
+      .outerRadius(setupChart.radius())
+      .innerRadius(setupChart.radius() - setupChart.radiusRing);
+
+      var drawArcMinute = d3.svg.arc()
+      .outerRadius(setupChart.radius() - setupChart.ringDistance - setupChart.radiusRing)
+      .innerRadius(setupChart.radius() - setupChart.ringDistance - (setupChart.radiusRing * 2));
+
+      var drawArcSecond = d3.svg.arc()
+      .outerRadius(setupChart.radius() - (setupChart.ringDistance * 2 ) - (setupChart.radiusRing * 2))
+      .innerRadius(setupChart.radius() - (setupChart.ringDistance * 2 ) - (setupChart.radiusRing * 3));
+
+      // Pie-Layouts
+
+      var pieHour = d3.layout.pie()
+      .sort(null)
+      .value(function(d){ return d.hour;});
+
+      var pieMinute = d3.layout.pie()
+      .sort(null)
+      .value(function(d){ return d.minute;});
+
+      var pieSecond = d3.layout.pie()
+      .sort(null)
+      .value(function(d){ return d.second;});
+
+      // Draw
+
+      var svg = d3.select("body").append("svg")
+      .attr("width", setupChart.width() + setupChart.margin.left + setupChart.margin.right)
+      .attr("height", setupChart.height() + setupChart.margin.top + setupChart.margin.bottom)
+      .append("g")
+      .attr("class", "chart")
+      .attr("transform", "translate(" + setupChart.margin.left + "," + setupChart.margin.top + ")")
+      .append("g")
+      .attr("class", "center")
+      .attr("transform", "translate(" + setupChart.width()/2 + "," +setupChart.height()/2 + ")");
+
+      update();
+
+      setInterval(function(){
+        time = setTime();
+        update();
+        console.log(time);
+      }, 1000);
+
+      // Setup the time data object
+
+      function setTime(){
+        var format = d3.time.format("%I-%M-%S");
+        var currentTime = format(new Date());
+        var currentTimeArray = currentTime.split("-");
+        var timeObject = {
+          "hour" : parseInt(currentTimeArray[0],10),
+          "minute": parseInt(currentTimeArray[1],10),
+          "second": parseInt(currentTimeArray[2],10),
+          // "second": elapsedTime();
+        };
+        var timeObjectSub = {
+          "hour" : 12 - currentTimeArray[0],
+          "minute": 60 - currentTimeArray[1],
+          "second": 60 - currentTimeArray[2],
+          // "second": 60 - elapsedTime()
+        };
+        return [timeObject,timeObjectSub ];
+      };
+
+      function update(){
+
+        // Hours
+
+        var arcsHour = svg.selectAll(".arc-hour")
+        .data(pieHour(time))
+        .attr("class", "arc-hour");
+
+        arcsHour.enter()
+        .append("path");
+
+        arcsHour.attr("d", drawArcHour)
+        .attr("class", "arc-hour")
+        .style("fill",function(d,i){return color(i);});
+
+        // Minutes
+
+        var arcsMinute = svg.selectAll(".arc-minute")
+        .data(pieMinute(time))
+        .attr("class", "arc-minute");
+
+        arcsMinute.enter()
+        .append("path");
+
+        arcsMinute.attr("d", drawArcMinute)
+        .attr("class", "arc-minute")
+        .style("fill",function(d,i){return color(i+2);});
+
+        // Seconds
+
+        var arcsSecond = svg.selectAll(".arc-second")
+        .data(pieSecond(time))
+        .attr("class", "arc-second");
+
+        arcsSecond.enter()
+        .append("path");
+
+        arcsSecond.attr("d", drawArcSecond)
+        .attr("class", "arc-second")
+        .style("fill",function(d,i){return color(i+4);});
+      }
 
   </script>
 
