@@ -25,9 +25,8 @@ def get_sound():
 #~ Get force data from mat
 @app.route('/_get_force')
 def get_force():
-	print('made it into here')   #~something going on here
-    force = force.get_force_read()
-    return jsonify(result=force)
+    force_val = force.get_force_read()
+    return jsonify(result=force_val)
 
 #~ Get force and sound randomized data for testing
 @app.route('/_get_time')

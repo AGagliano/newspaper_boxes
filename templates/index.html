@@ -51,7 +51,7 @@
       var force_test = 0;
       var sound_test = 0;
       var sound = 0;
-      var force = 0;
+      var force_val = 0;
 
       var startTime;
 
@@ -64,23 +64,31 @@
           $("#sound_test").text(sound_test);
           // Might to only check every few iterations to remove noise
           // If person steps on mat, start timer
-          if (force_test_new == 1 && force_test != 1) {
-            startTime = new Date()
-          };
-          force_test = force_test_new;
-          elapsedTime();
-          // setTimeout(display, 1000)
+          
+          //~ if (force_test_new == 1 && force_test != 1) {
+            //~ startTime_test = new Date()
+          //~ };
+          //~ force_test = force_test_new;
+          //~ elapsedTime();
         });
         // Get sound intensity data
-        // $.getJSON($SCRIPT_ROOT + '/_get_sound', function(data) {
-        //   sound = data.result['sound'];  
-        //   $("#sound").text(sound);
-        // });
+        $.getJSON($SCRIPT_ROOT + '/_get_sound', function(data) {
+          sound = data.result['sound'];  
+          $("#sound").text(sound);
+        });
         // Get force on mat data
-        // $.getJSON($SCRIPT_ROOT + '/_get_force', function(data) {
-        //   force = data.result['force_status'];
-        //   $("#force").text(force);
-        // });
+        $.getJSON($SCRIPT_ROOT + '/_get_force', function(data) {
+          force_val_new = data.result['force_status'];
+          $("#force_val").text(force_val);
+          if (force_val_new == 1 && force_val != 1) {
+            startTime = new Date();
+          };
+          if (force_val == 0) {
+			  startTime = new Date();
+		  };
+          force_val = force_val_new;
+          elapsedTime();
+        });
         updateSoundGraph(sound)
       }, 300) 
       );
@@ -227,9 +235,12 @@
     <h1>Automatically updating data</h1>
     <p>force_test: <span id="force_test">?</span></p> 
     <p>Time should be here:</p>
+<!--
     <div class="time"></div> 
+-->
     <p>sound_test: <span id="sound_test">?</span></p> 
-    <p>force: <span id="force">?</span></p>  
+    <p>Mat force: <span id="force_val">?</span></p>  
+    <div class="time"></div> 
     <p>sound: <span id="sound">?</span></p> 
   </div> 
     <!-- <p><a href="#" id="calculate">get time</a></p> -->
