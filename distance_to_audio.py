@@ -15,6 +15,7 @@ from __future__ import print_function
 import time
 import RPi.GPIO as GPIO
 import pygame
+import force
 
 # Use BCM GPIO references
 # instead of physical pin numbers
@@ -79,16 +80,17 @@ def play(audio_file):
 def run(): 
 	init_ultrasonic(GPIO_TRIGGER1, GPIO_ECHO1)
 	init_ultrasonic(GPIO_TRIGGER2, GPIO_ECHO2)
+	force.setup()
 
 	while True:
 		print("Distance1")
 		distance1 = get_dist(GPIO_TRIGGER1, GPIO_ECHO1)
 		print("Distance2")
 		distance2 = get_dist(GPIO_TRIGGER2, GPIO_ECHO2)
-
 		if distance1 < dist_range or distance2 < dist_range:
-		###Eventually add in conditional for FSR measure here
-			play("Audio/extra_extra_short.mp3")
+			force_val = force.get_force_read()
+			if force_val == 0:   #If no one is standing on the mat, then okay to sound the audio
+				play("Audio/extra_extra_short.mp3")
 
 	# Reset GPIO settings
 	GPIO.cleanup()  
