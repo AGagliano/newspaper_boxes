@@ -7,6 +7,7 @@ def setup():
 	GPIO.setup(4, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 def get_force_read():
+	print('in force function')
 	input_state = GPIO.input(4)
 	if input_state == 0:
 		print("Mat pressed")

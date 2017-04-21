@@ -1,0 +1,12 @@
+force value: 1 
+force value: 1 
+force value: 1 
+force value: 1 
+force value: 1 
+force value: 1 
+force value: 0 
+Measured distance1 = 12.1 cm
+Measured distance2 = 3.9 cm
+play audio
+force value: 1 
+force value: 1 
