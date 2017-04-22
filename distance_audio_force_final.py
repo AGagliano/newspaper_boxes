@@ -48,33 +48,33 @@ def run():
 	
 	dist_thresh = 100 #Anything less than 1 m away and the extra extra sound will play
 	
-	with open('distance_printout.txt', 'w') as f:
-		try: 
-			while True:
-				force_val_dict = force.get_force_read()
-				force_val = force_val_dict['force_status']
-				f.write("force value: %.f \n" % force_val)
-				#If no one is standing on mat, detect distance and play audio accordingly
-				if force_val != 1:
-					dist1 = distance(GPIO_TRIGGER1, GPIO_ECHO1)
-					print("Measured distance1 = %.1f cm" % dist1)
-					f.write("Measured distance1 = %.1f cm\n" % dist1)
-					dist2 = distance(GPIO_TRIGGER2, GPIO_ECHO2)
-					print("Measured distance2 = %.1f cm" % dist2)
-					f.write("Measured distance2 = %.1f cm\n" % dist2)
-					
-					
-					if dist1 < dist_thresh or dist2 < dist_thresh:
-						f.write("play audio\n")
-						play("Audio/extra_extra_short.mp3")
+	#with open('distance_printout.txt', 'w') as f:
+	try: 
+		while True:
+			force_val_dict = force.get_force_read()
+			force_val = force_val_dict['force_status']
+			#f.write("force value: %.f \n" % force_val)
+			#If no one is standing on mat, detect distance and play audio accordingly
+			if force_val != 1:
+				dist1 = distance(GPIO_TRIGGER1, GPIO_ECHO1)
+				print("Measured distance1 = %.1f cm" % dist1)
+				#f.write("Measured distance1 = %.1f cm\n" % dist1)
+				dist2 = distance(GPIO_TRIGGER2, GPIO_ECHO2)
+				print("Measured distance2 = %.1f cm" % dist2)
+				#f.write("Measured distance2 = %.1f cm\n" % dist2)
 				
 				
-				time.sleep(1)
-				
-		
-		except KeyboardInterrupt:
-			print("Measurement stopped by User")
-			GPIO.cleanup()
+				if dist1 < dist_thresh or dist2 < dist_thresh:
+					#f.write("play audio\n")
+					play("Audio/extra_extra_short.mp3")
+			
+			
+			time.sleep(1)
+			
+	
+	except KeyboardInterrupt:
+		print("Measurement stopped by User")
+		GPIO.cleanup()
 
 	
 	

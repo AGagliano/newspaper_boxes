@@ -53,7 +53,11 @@
       var sound = 0;
       var force_val = 0;
 
-      var startTime;
+      var startTime = new Date();
+
+      var timeArray;
+
+      var format = d3.time.format("%I-%M-%S");
 
       $(setInterval(function getSensorData() { 
         // For local development without real sensors:
@@ -65,36 +69,53 @@
           // Might to only check every few iterations to remove noise
           // If person steps on mat, start timer
           
-          //~ if (force_test_new == 1 && force_test != 1) {
-            //~ startTime_test = new Date()
-          //~ };
-          //~ force_test = force_test_new;
-          //~ elapsedTime();
-        });
-        // Get sound intensity data
-        $.getJSON($SCRIPT_ROOT + '/_get_sound', function(data) {
-          sound = data.result['sound'];  
-          $("#sound").text(sound);
-        });
-        // Get force on mat data
-        $.getJSON($SCRIPT_ROOT + '/_get_force', function(data) {
-          force_val_new = data.result['force_status'];
-          $("#force_val").text(force_val);
-          if (force_val_new == 1 && force_val != 1) {
+          if (force_test_new == 1 && force_test != 1) {
             startTime = new Date();
           };
-          if (force_val == 0) {
-			  startTime = new Date();
-		  };
-          force_val = force_val_new;
-          elapsedTime();
+          force_test = force_test_new;
+          // timeArray = elapsedTime();
         });
-        updateSoundGraph(sound)
+        // Get sound intensity data
+        // $.getJSON($SCRIPT_ROOT + '/_get_sound', function(data) {
+        //   sound = data.result['sound'];  
+        //   $("#sound").text(sound);
+        // });
+        // Get force on mat data
+        // $.getJSON($SCRIPT_ROOT + '/_get_force', function(data) {
+        //   force_val_new = data.result['force_status'];
+        //   $("#force_val").text(force_val);
+        //   if (force_val_new == 1 && force_val != 1) {
+        //     startTime = new Date();
+        //   };
+        //   if (force_val == 0) {
+			     // startTime = new Date();
+		      // };
+        //   force_val = force_val_new;
+        //   elapsedTime();
+        // });
+        updateSoundGraph(sound_test);
+        // console.log(timeArray);
+        // console.log(typeof timeArray);
+        // update(time);
+        time = setTimeDiff(startTime);
+        console.log("Time:")
+        console.log(time);
+        console.log("End time")
+        var seconds = time["0"].second
+        if (seconds > 3) {     //Update after 10 seconds
+          $("#loitering_time").text('You are loitering!');
+          update(colorRed);
+        } else {
+          $("#loitering_time").text('You have been here ' + seconds + ' seconds');
+          update(colorBlue);
+        };
+
       }, 300) 
       );
 
       function updateSoundGraph(sound) {
-        data.push(sound);
+        // data.push(sound);
+        data.push(9);
         // data.push(sound);
         data.shift();
         d3.select("#line_graph").remove();  //Remove the graph and then re-draw the line 
@@ -112,6 +133,7 @@
 
             // time difference in ms
             var timeDiff = endTime - startTime;
+            // var _timeArray = setTime(timeDiff);
 
             // strip the miliseconds
             timeDiff /= 1000;
@@ -138,7 +160,8 @@
             var days = timeDiff;
 
             $(".time").text(days + " days, " + hours + ":" + minutes + ":" + seconds);
-            return seconds;
+            var _timeArray = [hours, minutes, seconds]
+            return _timeArray;
         };
 
     </script>
@@ -214,6 +237,8 @@
         <h class="font-color font-bad-title1">LOITERING DECREASES</h>
         <p>force: <span id="force">?</span></p>  
         <p class="font-bad-text1">text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text</p>
+        <div id="pie-chart"></div>
+        <p><span id="loitering_time">?</span></p> 
 
       </div>
       <div class="sound-element">
@@ -252,9 +277,9 @@
       /* implementation heavily influenced by http://bl.ocks.org/1166403 */
       
       // define dimensions of graph
-      var m = [35, 35, 35, 35]; // margins
-      var w = 850 - m[1] - m[3]; // width
-      var h = 600 - m[0] - m[2]; // height
+      var m = [35, 35, 35, 35]; // margins: original - 35
+      var w = 850 - m[1] - m[3]; // width: original: 850
+      var h = 600 - m[0] - m[2]; // height - original: 600...that didn't change a thing...
       
       // create a simple data array that we'll plot with a line (this array represents only the Y values, X will just be the index location)
       // var data = [3, 6, 2, 7, 5, 2, 0, 3, 8, 9, 2, 5, 9, 3, 6, 3, 6, 2, 7, 5, 2, 1, 3, 8, 9, 2, 5, 9, 2, 7];
@@ -272,13 +297,13 @@
         // assign the X function to plot our line as we wish
         .x(function(d,i) { 
           // verbose logging to show what's actually being done
-          console.log('Plotting X value for data point: ' + d + ' using index: ' + i + ' to be at: ' + x(i) + ' using our xScale.');
+          // console.log('Plotting X value for data point: ' + d + ' using index: ' + i + ' to be at: ' + x(i) + ' using our xScale.');
           // return the X coordinate where we want to plot this datapoint
           return x(i); 
         })
         .y(function(d) { 
           // verbose logging to show what's actually being done
-          console.log('Plotting Y value for data point: ' + d + ' to be at: ' + y(d) + " using our yScale.");
+          // console.log('Plotting Y value for data point: ' + d + ' to be at: ' + y(d) + " using our yScale.");
           // return the Y coordinate where we want to plot this datapoint
           return y(d); 
         })
@@ -313,7 +338,7 @@
           .attr("id", "line_graph") //added in to try give path a name to remove later
           .attr("d", line(data));  //svg:path is important here
 
-
+      ///////////////////////////////////////
       // Defining and drawing the time lapsed on mat chart
       // Code heavily influenced by: http://bl.ocks.org/exakte-aesthetik/159def5c0e6534a039fb
       var setupChart = {
@@ -330,8 +355,11 @@
         "ringDistance": 1,
       };
 
-      var color = d3.scale.ordinal()
+      var colorBlue = d3.scale.ordinal()
       .range(["#2f4655", "#8a95a3", "#522c35", "#cca8b1", "#283b2f", "#9fb39f"]);
+
+      var colorRed = d3.scale.ordinal()
+      .range(["#522c35", "#cca8b1", "#283b2f", "#9fb39f"]);
 
       var time = setTime();
 
@@ -364,9 +392,10 @@
 
       // Draw
 
-      var svg = d3.select("body").append("svg")
+      var svg = d3.select("#pie-chart").append("svg")  //originally: body
       .attr("width", setupChart.width() + setupChart.margin.left + setupChart.margin.right)
       .attr("height", setupChart.height() + setupChart.margin.top + setupChart.margin.bottom)
+      // .attr("id", "pie-chart")  //I added this
       .append("g")
       .attr("class", "chart")
       .attr("transform", "translate(" + setupChart.margin.left + "," + setupChart.margin.top + ")")
@@ -375,19 +404,23 @@
       .attr("transform", "translate(" + setupChart.width()/2 + "," +setupChart.height()/2 + ")");
 
       update();
+      console.log("made it through first update")
 
-      setInterval(function(){
-        time = setTime();
-        update();
-        console.log(time);
-      }, 1000);
+      // setInterval(function(){
+      //   time = setTime();
+      //   update();
+      //   console.log(time);
+      // }, 1000);
 
       // Setup the time data object
-
       function setTime(){
+        console.log("in set time")
         var format = d3.time.format("%I-%M-%S");
         var currentTime = format(new Date());
+        console.log(currentTime);
         var currentTimeArray = currentTime.split("-");
+        // var currentTimeArray = timeDifference.split("-");  //I added this
+        // console.log(currentTimeArray)
         var timeObject = {
           "hour" : parseInt(currentTimeArray[0],10),
           "minute": parseInt(currentTimeArray[1],10),
@@ -403,33 +436,77 @@
         return [timeObject,timeObjectSub ];
       };
 
-      function update(){
+      function setTimeDiff(startTime){   //timeDiff was added in by me
+        console.log("in set time diff")
+        var format = d3.time.format("%I-%M-%S");
+        console.log(format);
+        var end = new Date();
+        console.log(end);
+        var diff = end - startTime;
+        diff /= 1000;
+        console.log(diff);
+        // var currentTime = format(diff);
+        // console.log(currentTime);
+        // var currentTime = format(new Date());
 
+        // var currentTime = new Date();    //I added this
+        // console.log('Start time:');
+        // console.log(startTime);
+        // console.log('Current time:');
+        // console.log(currentTime);
+        // console.log('timeDifference');
+        // var timeDifference = format(currentTime - startTime);  //I added this
+        
+        // console.log(timeDifference);
+
+        // console.log(currentTime);
+        // var _currentTimeDiff = format(timeDiff);
+        // console.log(_currentTimeDiff);
+        // var currentTimeArray = currentTime.split("-");
+        // var currentTimeArray = timeDifference.split("-");  //I added this
+        // console.log(currentTimeArray)
+        var timeObject = {
+          "hour" : 00,
+          "minute": Math.floor(diff/60),
+          "second": Math.round(diff % 60),
+          // "second": elapsedTime();
+        };
+        var timeObjectSub = {
+          "hour" : 12 - 0,
+          "minute": 60 - Math.floor(diff/60),
+          "second": 60 - Math.round(diff%60),
+          // "second": 60 - elapsedTime()
+        };
+        return [timeObject,timeObjectSub ];
+      };
+
+      function update(colorFunc){   //time was added in by me
+        console.log('in update function')
         // Hours
 
-        var arcsHour = svg.selectAll(".arc-hour")
-        .data(pieHour(time))
-        .attr("class", "arc-hour");
+        // var arcsHour = svg.selectAll(".arc-hour")
+        // .data(pieHour(time))
+        // .attr("class", "arc-hour");
 
-        arcsHour.enter()
-        .append("path");
+        // arcsHour.enter()
+        // .append("path");
 
-        arcsHour.attr("d", drawArcHour)
-        .attr("class", "arc-hour")
-        .style("fill",function(d,i){return color(i);});
+        // arcsHour.attr("d", drawArcHour)
+        // .attr("class", "arc-hour")
+        // .style("fill",function(d,i){return color(i);});
 
         // Minutes
 
-        var arcsMinute = svg.selectAll(".arc-minute")
-        .data(pieMinute(time))
-        .attr("class", "arc-minute");
+        // var arcsMinute = svg.selectAll(".arc-minute")
+        // .data(pieMinute(time))
+        // .attr("class", "arc-minute");
 
-        arcsMinute.enter()
-        .append("path");
+        // arcsMinute.enter()
+        // .append("path");
 
-        arcsMinute.attr("d", drawArcMinute)
-        .attr("class", "arc-minute")
-        .style("fill",function(d,i){return color(i+2);});
+        // arcsMinute.attr("d", drawArcMinute)
+        // .attr("class", "arc-minute")
+        // .style("fill",function(d,i){return color(i+2);});
 
         // Seconds
 
@@ -438,11 +515,20 @@
         .attr("class", "arc-second");
 
         arcsSecond.enter()
-        .append("path");
+        .append("path")
+        .style("stroke", "#d3d3d3")
+        .style("stroke-width", 2);
+
+        // stroke: steelblue;
+        // stroke-width: 3;
+
 
         arcsSecond.attr("d", drawArcSecond)
         .attr("class", "arc-second")
-        .style("fill",function(d,i){return color(i+4);});
+        // .style("fill",function(d,i){return color(i+4);});
+        .style("fill",function(d,i){return colorFunc(i);});
+
+        // .style("fill", '#522c35');
       }
 
   </script>
