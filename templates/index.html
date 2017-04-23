@@ -78,12 +78,16 @@
         // Get sound intensity data
         $.getJSON($SCRIPT_ROOT + '/_get_sound', function(data) {
           sound = data.result['sound'];  
+          console.log('sound is:');
+          console.log(sound);
           $("#sound").text(sound);
         });
         // Get force on mat data
         $.getJSON($SCRIPT_ROOT + '/_get_force', function(data) {
           force_val_new = data.result['force_status'];
-          $("#force_val").text(force_val);
+          console.log('force status is: ');
+          console.log(force_val_new)
+          $("#force_val").text(force_val_new);
           // if (force_val_new == 1 && force_val != 1) {
           //   startTime = new Date();
           // };
