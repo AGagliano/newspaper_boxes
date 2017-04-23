@@ -76,17 +76,17 @@
           // timeArray = elapsedTime();
         });
         // Get sound intensity data
-        // $.getJSON($SCRIPT_ROOT + '/_get_sound', function(data) {
-        //   sound = data.result['sound'];  
-        //   $("#sound").text(sound);
-        // });
+        $.getJSON($SCRIPT_ROOT + '/_get_sound', function(data) {
+          sound = data.result['sound'];  
+          $("#sound").text(sound);
+        });
         // Get force on mat data
-        // $.getJSON($SCRIPT_ROOT + '/_get_force', function(data) {
-        //   force_val_new = data.result['force_status'];
-        //   $("#force_val").text(force_val);
-        //   if (force_val_new == 1 && force_val != 1) {
-        //     startTime = new Date();
-        //   };
+        $.getJSON($SCRIPT_ROOT + '/_get_force', function(data) {
+          force_val_new = data.result['force_status'];
+          $("#force_val").text(force_val);
+          // if (force_val_new == 1 && force_val != 1) {
+          //   startTime = new Date();
+          // };
         //   if (force_val == 0) {
 			     // startTime = new Date();
 		      // };
@@ -114,9 +114,8 @@
       );
 
       function updateSoundGraph(sound) {
-        // data.push(sound);
-        data.push(9);
-        // data.push(sound);
+        // data.push(9);
+        data.push(sound);
         data.shift();
         d3.select("#line_graph").remove();  //Remove the graph and then re-draw the line 
         graph.append("svg:path")
@@ -264,9 +263,9 @@
     <div class="time"></div> 
 -->
     <p>sound_test: <span id="sound_test">?</span></p> 
-    <p>Mat force: <span id="force_val">?</span></p>  
+    <p>Mat force: <span id="force_val">Still nothing</span></p>  
     <div class="time"></div> 
-    <p>sound: <span id="sound">?</span></p> 
+    <p>sound: <span id="sound">Still nothing</span></p> 
   </div> 
     <!-- <p><a href="#" id="calculate">get time</a></p> -->
 
