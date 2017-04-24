@@ -6,11 +6,22 @@
     
     <!-- Create a link to the main.css stylesheet -->
     <link rel="stylesheet" href="static/styles/styles.css" type="text/css" />
+<!--     <link rel="stylesheet" href="static/circle.css" type="text/css" />
+    <link rel="stylesheet" href="static/_css/jquery-ui-slider-pips.css" type="text/css" /> -->
 
-    <!-- Link to d3 -->
+    <!-- Create a link to font css files-->
+<!--     <link rel="stylesheet" href="/static/Otari_font/Otari.css" type="text/css" />
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans" type="text/css" /> -->
+
+    <!-- Create a link to the bootstrap -->
+    <!-- <link rel="stylesheet" href="static/bootstrap/css/bootstrap.css" />  -->
+    <!-- <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"> -->
+<!--     // <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    // <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script> -->
     <script src="https://d3js.org/d3.v3.min.js"></script>
+    <!-- // <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/1.7.0/d3-legend.min.js"></script> -->
+    <!-- // <script src="static/jquery-ui-slider-pips.min.js"></script> -->
 
-    <!-- Link to jquery -->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <!-- AG Note: may have to put in jquery.js so it will work offline -->
     <script>window.jQuery || document.write('<script src="{{
@@ -23,7 +34,7 @@
 
     <script>
         // Initialize some data...maybe start with 0
-        var data = [300, 600, 200, 700, 500, 200, 0, 3000, 800, 900, 200, 500, 900, 300, 600, 300, 600, 2000, 700, 500, 2000, 100, 300, 800, 900, 200, 3500, 900, 200, 700, 300, 600, 200, 700, 500, 200, 0, 3000, 800, 900, 200, 500, 900, 300, 600];
+        var data = [300, 600, 200, 700, 500, 200, 0, 3000, 800, 900, 200, 500, 900, 300, 600, 300, 600, 2000, 700, 500, 2000, 100, 300, 800, 900, 200, 3500, 900, 200, 700];
     </script>
 
     <script type=text/javascript>
@@ -95,25 +106,16 @@
         console.log(time);
         console.log("End time");
         var seconds = time["0"].second
-        var minutes = time["0"].minute
-        console.log(minutes);
-
-        if (minutes == 0) {
-          if (seconds > 10) {     //Update after 10 seconds
-            $("#loitering_time").html('<p>You are loitering! <br>' + ' '+ minutes + ':' + minTwoDigits(seconds) + ' </p>');
-            update(colorRed); 
-          } else {
-            $("#loitering_time").html('<p>You have been here <br>' + seconds + ' seconds</p>');
-            update(colorBlue);
-          };
+        if (seconds > 3) {     //Update after 10 seconds
+          $("#loitering_time").text('You are loitering!');
+          update(colorRed);
         } else {
-          $("#loitering_time").html('<p>You are loitering! <br>' + ' '+ minutes + ':' + minTwoDigits(seconds) + ' </p>');
+          $("#loitering_time").text('You have been here ' + seconds + ' seconds');
+          update(colorBlue);
         };
 
       }, 300)
       );
-
-      
 
       function updateSoundGraph(sound) {
         data.push(9);
@@ -165,10 +167,6 @@
             return _timeArray;
         };
 
-        function minTwoDigits(n) {
-          return (n < 10 ? '0' : '') + n;
-        }
-
     </script>
 
 
@@ -176,8 +174,8 @@
       /*Styling for the sound graph*/
       /* tell the SVG path to be a blue line without any area fill */
       path {
-        stroke: #12659b;
-        stroke-width: 6;
+        stroke: steelblue;
+        stroke-width: 3;
         fill: none;
       }
       
@@ -199,7 +197,6 @@
 
       .y.axis line, .y.axis path {
         fill: none;
-        stroke-width: 2;
         stroke: #000;
       }
     </style>
@@ -217,7 +214,7 @@
 
   <div class="background">
     <div class="header">
-      <img id="datainquirer-logo" src="static/assets/DataInquirer_Header_5x.png" alt="Data-Inquirer">
+      <img id="datainquirer-logo" src="static/assets/DataInquirer_Header_3x.png" alt="Data-Inquirer">
       <div>
         <div class="light-line"></div>
         <h class="font-bad-subheader">SUBHEADER GOES HERE</h>
@@ -232,7 +229,7 @@
       
       <div class="video-text-element">
         <h class="font-color font-bad-title1">Cameras Detect Immigrants</h>
-        <p class="font-bad-text1">New facial recognition technology has been installed in surveillance cameras in the city of Berkeley. This measure is in keeping with recent efforts to identify and deport illegal immigrants in the State of California ... <a href="cameras_immigrants.html">more &rarr;</a></p>
+        <p class="font-bad-text1">text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text</p>
       </div>
 
     </div>
@@ -241,21 +238,16 @@
     <div class="force-and-sound-section">
       <div class="force-element">
         <h class="font-color font-bad-title1">LOITERING DECREASES</h>
-        <p class="font-bad-text1">Sensors on sidewalks and benches allow for real-time detection of loitering. Tickets are being administered via mail.</p>
-        <div class="pie-chart-container">
-          <div class="pie-text-box">
-            <p class="pie-text"><span id="loitering_time">?</span></p> 
-          </div>
-          <div id="pie-chart"></div>
-        </div>
-        
+        <p>force: <span id="force">?</span></p>  
+        <p class="font-bad-text1">text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text</p>
+        <div id="pie-chart"></div>
+        <p><span id="loitering_time">?</span></p> 
+
       </div>
       <div class="sound-element">
         <h class="font-color font-bad-title1">PROTEST detection</h>
+        <p class="font-bad-text1">text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text, text</p>
         <div id="graph" class="aGraph" ></div>
-        <p class="font-bad-text1" id="protest-counter">Lastest protest activity was <br>13 days ago</p>
-        <p class="font-bad-text1">Noise level sensors inform the Berkely City Police when there is protest activity.</p>
-        
       </div>
     </div>
     <div>
@@ -288,9 +280,9 @@
       /* implementation heavily influenced by http://bl.ocks.org/1166403 */
       
       // define dimensions of graph
-      var m = [80, 80, 80, 80]; // margins: original - 35
-      var w = 1000 - m[1] - m[3]; // width: original: 850
-      var h = 650 - m[0] - m[2]; // height - original: 600...that didn't change a thing...
+      var m = [35, 35, 35, 35]; // margins: original - 35
+      var w = 850 - m[1] - m[3]; // width: original: 850
+      var h = 600 - m[0] - m[2]; // height - original: 600...that didn't change a thing...
       
       // create a simple data array that we'll plot with a line (this array represents only the Y values, X will just be the index location)
       // var data = [3, 6, 2, 7, 5, 2, 0, 3, 8, 9, 2, 5, 9, 3, 6, 3, 6, 2, 7, 5, 2, 1, 3, 8, 9, 2, 5, 9, 2, 7];
@@ -326,14 +318,13 @@
             .append("svg:g")  //the svg:g lets us grab the whole graph in the svg and apply the padding to it
               .attr("transform", "translate(" + m[3] + "," + m[0] + ")");  //gives the graph padding on the left
 
-        // create xAxis
-        // var xAxis = d3.svg.axis().scale(x).tickSize(-h).tickSubdivide(true);
-        // // Add the x-axis.
-        // graph.append("svg:g")
-        //       .attr("class", "x axis")
-        //       .attr("transform", "translate(0," + h + ")") //Moves xacis to the appropriate location
-        //       .call(xAxis);
-
+        // create yAxis
+        var xAxis = d3.svg.axis().scale(x).tickSize(-h).tickSubdivide(true);
+        // Add the x-axis.
+        graph.append("svg:g")
+              .attr("class", "x axis")
+              .attr("transform", "translate(0," + h + ")") //Moves xacis to the appropriate location
+              .call(xAxis);
 
 
         // create left yAxis
@@ -343,14 +334,6 @@
               .attr("class", "y axis")
               .attr("transform", "translate(0,0)") //moves y axis to the appropriate location
               .call(yAxisLeft);
-
-        //Add yAxis label
-        graph.append("text")
-            .attr("text-anchor", "middle")  // this makes it easy to centre the text as the transform is applied to the anchor
-            .attr("transform", "translate("+ (-60) +","+(h/2)+")rotate(-90)")  // text is drawn off the screen top left, move down and out and rotate
-            .text("Environment noise level")
-            .style("font-size", "30px")
-            .style("font-weight", "bold");
         
           // Add the line by appending an svg:path element with the data line we created above
         // do this AFTER the axes above so that the line is above the tick-lines
@@ -363,26 +346,23 @@
       // Code heavily influenced by: http://bl.ocks.org/exakte-aesthetik/159def5c0e6534a039fb
       var setupChart = {
         "margin": {
-          "top": -100,
-          "right": 0,   //original: 50
+          "top": 10,
+          "right": 50,
           "bottom": 10,
-          "left": -100     //original: 50
+          "left": 50
         },
-        width:  function() {return 1000 - this.margin.left - this.margin.right;},  //original: 960
-        height: function() {return 750 - this.margin.top - this.margin.bottom;},  //original: 500
+        width:  function() {return 960 - this.margin.left - this.margin.right;},
+        height: function() {return 500 - this.margin.top - this.margin.bottom;},
         radius: function() {return this.height()/2;},
-        "radiusRing": 100,
-        "ringDistance": -50,
+        "radiusRing": 45,
+        "ringDistance": 1,
       };
 
       var colorBlue = d3.scale.ordinal()
-      .range(["#2f4655", "#8a95a3", "#283b2f", "#9fb39f"]);
+      .range(["#2f4655", "#8a95a3", "#522c35", "#cca8b1", "#283b2f", "#9fb39f"]);
 
       var colorRed = d3.scale.ordinal()
-      .range(["#522c35", "#cca8b1"]);
-
-      var colorBrightRed = d3.scale.ordinal()
-      .range(["#d80436", "#cca8b1"]);
+      .range(["#522c35", "#cca8b1", "#283b2f", "#9fb39f"]);
 
       var time = setTime();
 
@@ -429,8 +409,6 @@
       update();
       console.log("made it through first update")
 
-      
-
       // setInterval(function(){
       //   time = setTime();
       //   update();
@@ -438,28 +416,28 @@
       // }, 1000);
 
       // Setup the time data object
-      function setTime(){
-        console.log("in set time")
-        var format = d3.time.format("%I-%M-%S");
-        var currentTime = format(new Date());
-        console.log(currentTime);
-        var currentTimeArray = currentTime.split("-");
-        // var currentTimeArray = timeDifference.split("-");  //I added this
-        // console.log(currentTimeArray)
-        var timeObject = {
-          "hour" : parseInt(currentTimeArray[0],10),
-          "minute": parseInt(currentTimeArray[1],10),
-          "second": parseInt(currentTimeArray[2],10),
-          // "second": elapsedTime();
-        };
-        var timeObjectSub = {
-          "hour" : 12 - currentTimeArray[0],
-          "minute": 60 - currentTimeArray[1],
-          "second": 60 - currentTimeArray[2],
-          // "second": 60 - elapsedTime()
-        };
-        return [timeObject,timeObjectSub ];
-      };
+      // function setTime(){
+      //   console.log("in set time")
+      //   var format = d3.time.format("%I-%M-%S");
+      //   var currentTime = format(new Date());
+      //   console.log(currentTime);
+      //   var currentTimeArray = currentTime.split("-");
+      //   // var currentTimeArray = timeDifference.split("-");  //I added this
+      //   // console.log(currentTimeArray)
+      //   var timeObject = {
+      //     "hour" : parseInt(currentTimeArray[0],10),
+      //     "minute": parseInt(currentTimeArray[1],10),
+      //     "second": parseInt(currentTimeArray[2],10),
+      //     // "second": elapsedTime();
+      //   };
+      //   var timeObjectSub = {
+      //     "hour" : 12 - currentTimeArray[0],
+      //     "minute": 60 - currentTimeArray[1],
+      //     "second": 60 - currentTimeArray[2],
+      //     // "second": 60 - elapsedTime()
+      //   };
+      //   return [timeObject,timeObjectSub ];
+      // };
 
       function setTimeDiff(startTime){   //timeDiff was added in by me
         console.log("in set time diff")
