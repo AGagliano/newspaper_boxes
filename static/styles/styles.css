@@ -10,33 +10,42 @@
 /*Font styling*/
 
 .font-color {
-	color: #4A4A4A;
+	/*color: #4A4A4A;*/
+	color: #737273;
 }
 
-.font-bad-subheader {
+.font-di-subheader {
 	font-family: Garamond, Baskerville, "Baskerville Old Face", "Hoefler Text", "Times New Roman", serif;
-	font-size: 35px;
-	text-align: middle;
-	margin: 5px;
+	font-size: 45px;
 }
 
-.font-bad-title1 {
+.font-di-title1 {
 	font-family: Garamond, Baskerville, "Baskerville Old Face", "Hoefler Text", "Times New Roman", serif;
 	font-size: 80px;
 	font-weight: bold;
 }
 
-.font-bad-text1 {
+.font-di-text1 {
 	font-family: Garamond, Baskerville, "Baskerville Old Face", "Hoefler Text", "Times New Roman", serif;
 	font-size: 45px;
 }
 
-.font-good {
-
+.font-dd-subheader {
+	font-family: Rockwell, "Courier Bold", Courier, Georgia, Times, "Times New Roman", serif;
+	font-size: 30px;
+	font-weight: 300;
+	/*font-weight: regular*/
 }
 
-.font-size-title1 {
+.font-dd-title1 {
+	font-family: Rockwell, "Courier Bold", Courier, Georgia, Times, "Times New Roman", serif;
+	font-size: 80px;
+	font-weight: bold;
+}
 
+.font-dd-text1 {
+	font-family: "Franklin Gothic Medium", "Franklin Gothic", "ITC Franklin Gothic", Arial, sans-serif;
+	font-size: 45px;
 }
 
 
@@ -49,6 +58,13 @@
 	width: 75%;
 	padding-left: 12.5%;
 	padding-top: 2.5%;
+	padding-bottom: 2.5%;
+}
+
+#dailydata-logo {
+	width: 75%;
+	padding-left: 12.5%;
+	padding-top: 5%;
 	padding-bottom: 2.5%;
 }
 
@@ -68,11 +84,60 @@
 	height: 4px;
 }
 
+.extradark-line {
+	background-color: #4A4A4A;; 
+	width: 100%;
+	height: 8px;
+	margin-top: 2.5%;
+}
+
 .dark-line-short {
 	background-color: #4A4A4A;; 
 	width: 90%;
 	height: 3px;
 	margin-left: 5%;
+}
+
+.subheader-container-di {
+	width: 100%;
+	height: 55px;
+}
+
+.subheader-container-dd {
+	width: 80%;
+	height: 40px;
+	padding-left: 12.5%;
+/*	padding-top: 2.5%;
+	padding-bottom: 2.5%;*/
+}
+
+.subheader-volume {
+	float: left;
+	width: 22%;
+}
+
+.subheader-text {
+	float: left;
+	width: 52%;
+	text-align: center;
+}
+
+.subheader-date {
+	float: left;
+	width: 22%;
+	text-align: right;
+}
+
+.subheader-text-dd {
+	float: left;
+	width: 67%;
+/*	text-align: center;
+*/}
+
+.subheader-date-dd {
+	float: left;
+	width: 27%;
+	text-align: right;
 }
 
 /*Video section css*/
@@ -82,9 +147,15 @@
 	/*background-color: gray;*/
 }
 
+.video-section-dd {
+	width: 100%;
+	height: 27%;
+	/*background-color: gray;*/
+}
+
 .video-stream-element {
 	width: 55%;
-	height: 95%;
+	height: 90%;
 	float: left;
 	/*background-color: white;*/
 	margin: 2.5%;
@@ -92,12 +163,51 @@
 
 .video-text-element {
 	width: 35%;
-	height: 95%;
+	height: 90%;
 	float: left;
 	/*background-color: white;*/
 	margin: 2.5%;
 	padding: 0px;
 }
+
+.video-stream-element-dd {
+	width: 45%;
+	height: 90%;
+	float: left;
+	/*background-color: red;*/
+	margin: 2.5%;
+}
+
+.video-text-element-dd {
+	width: 40%;
+	height: 95%;
+	float: left;
+	/*background-color: red;*/
+	margin: 2.5%;
+	padding: 0px;
+}
+
+.video-flood-notice {
+	width: 100%;
+	height: 50px;
+	background-color: #2A4B03;
+	text-align: center;
+	font-size: 40px;
+	/*margin-top: 25%;*/
+	padding-top: 5px;
+	/*top: 50%;*/
+	color: white;
+	font-family: Rockwell, "Courier Bold", Courier, Georgia, Times, "Times New Roman", serif;;
+}
+
+.dd-headline {
+	font-family: Rockwell, "Courier Bold", Courier, Georgia, Times, "Times New Roman", serif;
+	font-size: 70px;
+	text-align: left;
+	margin: 0px;
+	margin-top: 20px;
+}
+
 
 
 /*Force and sound section css*/
@@ -126,6 +236,23 @@
 	margin: 2.5%;
 }
 
+.force-element-dd {
+	width: 45%;
+	/*height: 95%;*/
+	/*background-color: red;*/
+	float: right;
+	margin: 2.5%;
+
+}
+
+.sound-element-dd {
+	width: 45%;
+	/*height: 95%;*/
+	/*background-color: red;*/
+	float: right;
+	margin: 2.5%;
+}
+
 .pie-chart-container {
 	position: relative;
 	height: 100%;
@@ -146,6 +273,54 @@
 	text-align: center;
 }
 
+.map-container {
+	position: relative;
+}
+
+#berkeley-map {
+	position: relative;
+	z-index: -1;
+	width: 80%;
+	padding-left: 10%; 
+}
+
+.berkeley-pies1 {
+	position: relative;
+	z-index: 99;
+	left: 350px;
+	top: -200px;
+}
+
+
+
+.berkeley-pies3 {
+	position: relative;
+	z-index: 97;
+	left: 326px;
+	top: -200px;
+}
+
+.berkeley-pies4 {
+	position: relative;
+	z-index: 96;
+	left: 320px;
+	top: -600px;
+}
+
+.berkeley-pies5 {
+	position: relative;
+	z-index: 95;
+	left: 200px;
+	top: -500px;
+}
+
+.berkeley-pies6 {
+	position: relative;
+	z-index: 94;
+	left: 400px;
+	top: -800px;
+}
+
 #protest-counter {
 	font-weight: bold;
 	font-size: 50px;
@@ -153,7 +328,28 @@
 	background-color: #12659b;
 	color: white;
 	margin: 15px;
+	padding-top: 20px;
 	height: 150px;
+	vertical-align: middle;
+}
+
+
+/*Daily data content specific*/
+
+/*.dd-headline {
+	text-align: right;
+	padding-top: 15px;
+	color: red;
+}*/
+
+
+
+
+
+
+/*Site wide changes*/
+a {
+	text-decoration: none;
 }
 
 

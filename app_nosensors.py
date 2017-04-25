@@ -13,6 +13,20 @@ def get_time():
 def index():
     return render_template('index.html')
 
+# Data Inquirer main page
+@app.route('/data_inquirer')
+def index_di():
+    return render_template('index_data_inquirer.html')
+
+# Daily data main page
+@app.route('/daily_data')
+def index_dd():
+    return render_template('index_daily_data.html')
+
+@app.route('/cameras_immigrants.html')
+def cameras_immigrants():
+    return render_template('cameras_immigrants.html')
+
 
 if __name__ == '__main__':
     app.debug = False

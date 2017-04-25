@@ -34,6 +34,16 @@ def get_time():
     sensorData = sensor_data.run()
     return jsonify(result=sensorData)
 
+# Data Inquirer main page
+@app.route('/data_inquirer')
+def index_di():
+    return render_template('index_data_inquirer.html')
+
+# Daily data main page
+@app.route('/daily_data')
+def index_dd():
+    return render_template('index_daily_data.html')
+
 @app.route('/')
 def index():
     return render_template('index.html')

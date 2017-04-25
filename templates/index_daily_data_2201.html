@@ -224,54 +224,55 @@
 
   <div class="background">
     <div class="header">
-      <img id="datainquirer-logo" src="static/assets/DataInquirer_Header_5x.png" alt="Data-Inquirer">
-      <div>
-        <div class="light-line"></div>
-        <div class="subheader-container font-bad-subheader">
-          <h class="subheader-volume">Vol. IV, No. 3</h>
-          <h class="subheader-text">Protecting our city one sensor at a time</h>
-          <h class="subheader-date"><span id="today-date"></span></h>
-        </div>
-        <div class="dark-line"></div>
+      <div class="extradark-line"></div>
+      <img id="dailydata-logo" src="static/assets/DailyData_Header_10x.png" alt="Data-Inquirer">
+      <div class="subheader-container-dd font-dd-subheader">
+        <h class="subheader-text-dd">IMPROVING OUR CITY ONE SENSOR AT A TIME</h>
+        <h class="subheader-date-dd"><span id="today-date"></span></h>
       </div>
+      <div class="extradark-line"></div>
     </div>
-    <div class="video-section">
-      <div class="video-stream-element">
-         <iframe allowfullscreen webkitallowfullscreen mozallowfullscreen src="https://video.nest.com/embedded/live/6FR8nDsu8X" frameborder="0" width="1080" height="607.5"></iframe> 
-         <!-- For no border: 720 width, 405 height -->
-      </div>
+    <div class="video-section-dd">
+      <!-- <h class="font-color font-dd-title1">Image Recognition Prevents Flooding</h> -->
       
-      <div class="video-text-element">
-        <h class="font-color font-bad-title1">Cameras Detect Immigrants</h>
-        <p class="font-bad-text1">New facial recognition technology has been installed in surveillance cameras in the city of Berkeley. This measure is in keeping with recent efforts to identify and deport illegal immigrants in the State of California ... <a href="cameras_immigrants.html">more &rarr;</a></p>
+      <div class="video-text-element-dd">
+        <h1 class="font-color dd-headline">Image Recognition Prevents Flooding</h1>
+        <p class="font-dd-text1">New image recognition software detects early flooding on city and neighborhood streets in light of recent storm weather.</p>
+      </div>
+      <div class="video-stream-element-dd">
+         <iframe allowfullscreen webkitallowfullscreen mozallowfullscreen src="https://video.nest.com/embedded/live/6FR8nDsu8X" frameborder="0" width="925" height="520.3125"></iframe>    
+         <!-- For no border: 720 width, 405 height -->
+         <p class="video-flood-notice">No flood currently detected</p>
       </div>
 
     </div>
     <div class="dark-line-short"></div>
     <!-- line -->
     <div class="force-and-sound-section">
-      <div class="force-element">
-        <h class="font-color font-bad-title1">LOITERING DECREASES</h>
-        <p class="font-bad-text1">Sensors on sidewalks and benches allow for real-time detection of loitering.</p>
-        <div class="pie-chart-container">
+      
+      <div class="sound-element-dd">
+        <h class="font-color font-di-title1">Pedestrian Safety</h>
+        <div id="graph" class="aGraph" ></div>
+        <p class="font-dd-text1">Noise level, vibration detection, and pedestrian counts are being used to automatically adjust speed limits and traffic lines for safety.</p>
+        
+      </div>
+      <div class="force-element-dd">
+        <h class="font-color font-dd-title1">Food for the Homeless</h>
+        <p class="font-dd-text1">Sensors on benches enable real-time detection of the location of homeless individuals in the City of Berkeley. Startups such as Re-plate can now deliver excess food to those in need before the food spoils.</p>
+        <img id="berkeley-map" src="static/assets/Berkeley_map.png" alt="Berkeley-map"></img>
+
+        <!-- <div class="pie-chart-container">
           <div class="pie-text-box">
             <p class="pie-text"><span id="loitering_time">?</span></p> 
           </div>
           <div id="pie-chart"></div>
-        </div>
-        
-      </div>
-      <div class="sound-element">
-        <h class="font-color font-bad-title1">PROTEST detection</h>
-        <div id="graph" class="aGraph" ></div>
-        <p class="font-bad-text1" id="protest-counter">Latest protest activity was <br>13 days ago</p>
-        <p class="font-bad-text1">Noise level sensors inform the Berkeley City Police Department when there is protest activity.</p>
+        </div> -->
         
       </div>
     </div>
     <div>
         <div class="light-line"></div>
-        <h class="font-bad-subheader">For Security and Privacy Informaiton</h>
+        <h class="font-di-subheader">For Security and Privacy Informaiton</h>
         <div class="dark-line"></div>
       </div>
   </div>
