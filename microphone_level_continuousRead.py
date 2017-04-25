@@ -2,6 +2,7 @@
 
 import alsaaudio, time, audioop
 
+card = 'sysdefault:CARD=Microphone'
 inp=alsaaudio.PCM(alsaaudio.PCM_CAPTURE, alsaaudio.PCM_NONBLOCK)
 
 inp.setchannels(1)
