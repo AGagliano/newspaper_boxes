@@ -64,38 +64,35 @@
           // Might to only check every few iterations to remove noise
           // If person steps on mat, start timer
           
-          ///////Uncomment for fake sensor testing////////////////
-          // if (force_test_new == 1 && force_test != 1) {
-          //   startTime = new Date();
-          // };
-          // force_test = force_test_new;
-        });
-
-
-        //////Comment the following if testing without sensors/////////
-        // Get sound intensity data
-        $.getJSON($SCRIPT_ROOT + '/_get_sound', function(data) {
-          sound = data.result['sound'];  
-          console.log('sound is:');
-          console.log(sound);
-          $("#sound").text(sound);
-        });
-        // Get force on mat data
-        $.getJSON($SCRIPT_ROOT + '/_get_force', function(data) {
-          force_val_new = data.result['force_status'];
-          console.log('force status is: ');
-          console.log(force_val_new)
-          $("#force_val").text(force_val_new);
-          if (force_val_new == 1 && force_val != 1) {
+          if (force_test_new == 1 && force_test != 1) {
             startTime = new Date();
           };
-        //   if (force_val == 0) {              ///I don't think I need this if statement
+          force_test = force_test_new;
+          // timeArray = elapsedTime();
+        });
+        // Get sound intensity data
+        // $.getJSON($SCRIPT_ROOT + '/_get_sound', function(data) {
+        //   sound = data.result['sound'];  
+        //   console.log('sound is:');
+        //   console.log(sound);
+        //   $("#sound").text(sound);
+        // });
+        // Get force on mat data
+        // $.getJSON($SCRIPT_ROOT + '/_get_force', function(data) {
+        //   force_val_new = data.result['force_status'];
+        //   console.log('force status is: ');
+        //   console.log(force_val_new)
+        //   $("#force_val").text(force_val_new);
+          // if (force_val_new == 1 && force_val != 1) {
+          //   startTime = new Date();
+          // };
+        //   if (force_val == 0) {
 			     // startTime = new Date();
 		      // };
-          force_val = force_val_new;
-        });
-        updateSoundGraph(sound);
-        // updateSoundGraph(sound_test);    ////For fake sensor testing
+        //   force_val = force_val_new;
+        //   elapsedTime();
+        // });
+        updateSoundGraph(sound_test);
         // console.log(timeArray);
         // console.log(typeof timeArray);
         // update(time);
@@ -126,7 +123,7 @@
       
 
       function updateSoundGraph(sound) {
-        data.push(sound);
+        data.push(9);
         // data.push(sound);
         data.shift();
         d3.select("#line_graph").remove();  //Remove the graph and then re-draw the line 
@@ -269,6 +266,7 @@
         <div id="graph" class="aGraph" ></div>
         <p class="font-di-text1" id="protest-counter">Latest protest activity was <br>13 days ago</p>
         <p class="font-di-text1">Noise level sensors inform the Berkeley City Police Department when there is protest activity.</p>
+     
         
       </div>
     </div>

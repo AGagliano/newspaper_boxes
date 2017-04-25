@@ -42,7 +42,19 @@
       var sound = 0;
       var force_val = 0;
 
-      var startTime = new Date();
+      // Faking start time for homeless people on Berkeley map
+      var startTime1 = new Date();
+      var startTime2 = new Date();
+      var startTime3 = new Date();
+      var startTime4 = new Date();
+      var startTime5 = new Date();
+      var startTime6 = new Date();
+      startTime1.setSeconds(startTime1.getSeconds() + 10);
+      startTime2.setSeconds(startTime2.getSeconds() + 7);
+      startTime3.setSeconds(startTime3.getSeconds() + 36);
+      startTime4.setSeconds(startTime4.getSeconds() + 54);
+      startTime5.setSeconds(startTime5.getSeconds() + 18);
+      startTime6.setSeconds(startTime6.getSeconds() + 2);
 
       var timeArray;
 
@@ -64,60 +76,76 @@
           // Might to only check every few iterations to remove noise
           // If person steps on mat, start timer
           
-          ///////Uncomment for fake sensor testing////////////////
-          // if (force_test_new == 1 && force_test != 1) {
-          //   startTime = new Date();
-          // };
-          // force_test = force_test_new;
-        });
-
-
-        //////Comment the following if testing without sensors/////////
-        // Get sound intensity data
-        $.getJSON($SCRIPT_ROOT + '/_get_sound', function(data) {
-          sound = data.result['sound'];  
-          console.log('sound is:');
-          console.log(sound);
-          $("#sound").text(sound);
-        });
-        // Get force on mat data
-        $.getJSON($SCRIPT_ROOT + '/_get_force', function(data) {
-          force_val_new = data.result['force_status'];
-          console.log('force status is: ');
-          console.log(force_val_new)
-          $("#force_val").text(force_val_new);
-          if (force_val_new == 1 && force_val != 1) {
+          if (force_test_new == 1 && force_test != 1) {
             startTime = new Date();
           };
-        //   if (force_val == 0) {              ///I don't think I need this if statement
+          force_test = force_test_new;
+          // timeArray = elapsedTime();
+        });
+        // Get sound intensity data
+        // $.getJSON($SCRIPT_ROOT + '/_get_sound', function(data) {
+        //   sound = data.result['sound'];  
+        //   console.log('sound is:');
+        //   console.log(sound);
+        //   $("#sound").text(sound);
+        // });
+        // Get force on mat data
+        // $.getJSON($SCRIPT_ROOT + '/_get_force', function(data) {
+        //   force_val_new = data.result['force_status'];
+        //   console.log('force status is: ');
+        //   console.log(force_val_new)
+        //   $("#force_val").text(force_val_new);
+          // if (force_val_new == 1 && force_val != 1) {
+          //   startTime = new Date();
+          // };
+        //   if (force_val == 0) {
 			     // startTime = new Date();
 		      // };
-          force_val = force_val_new;
-        });
-        updateSoundGraph(sound);
-        // updateSoundGraph(sound_test);    ////For fake sensor testing
+        //   force_val = force_val_new;
+        //   elapsedTime();
+        // });
+        updateSoundGraph(sound_test);
         // console.log(timeArray);
         // console.log(typeof timeArray);
         // update(time);
-        time = setTimeDiff(startTime);
-        console.log("Time:");
-        console.log(time);
-        console.log("End time");
-        var seconds = time["0"].second
-        var minutes = time["0"].minute
-        console.log(minutes);
+        time = setTimeDiff(startTime1);
+        update(colorRed, svg1);
+        time = setTimeDiff(startTime2);
+        update(colorRed, svg2);
+        time = setTimeDiff(startTime3);
+        update(colorRed, svg3);
+        time = setTimeDiff(startTime4);
+        update(colorRed, svg4);
+        time = setTimeDiff(startTime5);
+        update(colorRed, svg5);
+        time = setTimeDiff(startTime6);
+        update(colorRed, svg6);
+        // console.log("Time:");
+        // console.log(time);
+        // console.log("End time");
+        // var seconds = time["0"].second
+        // var minutes = time["0"].minute
+        // console.log(minutes);
 
-        if (minutes == 0) {
-          if (seconds > 10) {     //Update after 10 seconds
-            $("#loitering_time").html('<p>You are loitering! <br>' + ' '+ minutes + ':' + minTwoDigits(seconds) + ' </p>');
-            update(colorRed); 
-          } else {
-            $("#loitering_time").html('<p>You have been here <br>' + seconds + ' seconds</p>');
-            update(colorBlue);
-          };
-        } else {
-          $("#loitering_time").html('<p>You are loitering! <br>' + ' '+ minutes + ':' + minTwoDigits(seconds) + ' </p>');
-        };
+        // if (minutes == 0) {
+        //   if (seconds > 10) {     //Update after 10 seconds
+        //     $("#loitering_time").html('<p>You are loitering! <br>' + ' '+ minutes + ':' + minTwoDigits(seconds) + ' </p>');
+        //     update(colorRed, svg1); 
+        //     update(colorRed, svg2); 
+        //     update(colorRed, svg3); 
+        //     update(colorRed, svg4);
+        //     update(colorRed, svg5);  
+        //   } else {
+        //     $("#loitering_time").html('<p>You have been here <br>' + seconds + ' seconds</p>');
+        //     update(colorBlue, svg1);
+        //     update(colorBlue, svg2);
+        //     update(colorBlue, svg3);
+        //     update(colorBlue, svg4);
+        //     update(colorBlue, svg5);
+        //   };
+        // } else {
+        //   $("#loitering_time").html('<p>You are loitering! <br>' + ' '+ minutes + ':' + minTwoDigits(seconds) + ' </p>');
+        // };
         $('#today-date').html('<h> ' + days[todayDate.getDay()] + ', ' + months[todayDate.getMonth()] + ' ' + todayDate.getDate() + ', 2020</h>');
 
       }, 300)
@@ -126,7 +154,7 @@
       
 
       function updateSoundGraph(sound) {
-        data.push(sound);
+        data.push(9);
         // data.push(sound);
         data.shift();
         d3.select("#line_graph").remove();  //Remove the graph and then re-draw the line 
@@ -227,48 +255,52 @@
 
   <div class="background">
     <div class="header">
-      <img id="datainquirer-logo" src="static/assets/DataInquirer_Header_5x.png" alt="Data-Inquirer">
-      <div>
-        <div class="light-line"></div>
-        <div class="subheader-container-di font-di-subheader">
-          <h class="subheader-volume">Vol. IV, No. 3</h>
-          <h class="subheader-text">Protecting our city one sensor at a time</h>
-          <h class="subheader-date"><span id="today-date"></span></h>
-        </div>
-        <div class="dark-line"></div>
+      <div class="extradark-line"></div>
+      <img id="dailydata-logo" src="static/assets/DailyData_Header_10x.png" alt="Data-Inquirer">
+      <div class="subheader-container-dd font-dd-subheader">
+        <h class="subheader-text-dd">IMPROVING OUR CITY ONE SENSOR AT A TIME</h>
+        <h class="subheader-date-dd"><span id="today-date"></span></h>
       </div>
+      <div class="extradark-line"></div>
     </div>
-    <div class="video-section">
-      <div class="video-stream-element">
-         <iframe allowfullscreen webkitallowfullscreen mozallowfullscreen src="https://video.nest.com/embedded/live/6FR8nDsu8X" frameborder="0" width="1080" height="607.5"></iframe> 
-         <!-- For no border: 720 width, 405 height -->
-      </div>
+    <div class="video-section-dd">
+      <!-- <h class="font-color font-dd-title1">Image Recognition Prevents Flooding</h> -->
       
-      <div class="video-text-element">
-        <h class="font-color font-di-title1">Cameras Detect Immigrants</h>
-        <p class="font-di-text1">New facial recognition technology has been installed in surveillance cameras in the city of Berkeley. This measure is in keeping with recent efforts to identify and deport illegal immigrants in the State of California.</p>
+      <div class="video-text-element-dd">
+        <h1 class="font-color dd-headline">Image Recognition Prevents Flooding</h1>
+        <p class="font-dd-text1">New image recognition software detects early flooding on city and neighborhood streets in light of recent storm weather.</p>
+      </div>
+      <div class="video-stream-element-dd">
+         <iframe allowfullscreen webkitallowfullscreen mozallowfullscreen src="https://video.nest.com/embedded/live/6FR8nDsu8X" frameborder="0" width="925" height="520.3125"></iframe>    
+         <!-- For no border: 720 width, 405 height -->
+         <p class="video-flood-notice">No flood currently detected</p>
       </div>
 
     </div>
     <div class="dark-line-short"></div>
     <!-- line -->
     <div class="force-and-sound-section">
-      <div class="force-element">
-        <h class="font-color font-di-title1">LOITERING DECREASES</h>
-        <p class="font-di-text1">Sensors on sidewalks and benches allow for real-time detection of loitering.</p>
-        <div class="pie-chart-container">
-          <div class="pie-text-box">
-            <p class="pie-text"><span id="loitering_time">?</span></p> 
-          </div>
-          <div id="pie-chart"></div>
-        </div>
+      
+      <div class="sound-element-dd">
+        <h class="font-color font-di-title1">Pedestrian Safety</h>
+        <div id="graph" class="aGraph" ></div>
+        <p class="font-dd-text1">Noise level, vibration detection, and pedestrian counts are being used to automatically adjust speed limits and traffic limits for safety.</p>
         
       </div>
-      <div class="sound-element">
-        <h class="font-color font-di-title1">PROTEST detection</h>
-        <div id="graph" class="aGraph" ></div>
-        <p class="font-di-text1" id="protest-counter">Latest protest activity was <br>13 days ago</p>
-        <p class="font-di-text1">Noise level sensors inform the Berkeley City Police Department when there is protest activity.</p>
+      <div class="force-element-dd">
+        <h class="font-color font-dd-title1">Food for the Homeless</h>
+        <p class="font-dd-text1">Sensors on benches enable real-time detection of the location of homeless individuals in the City of Berkeley. Startups such as Re-plate can now deliver excess food to those in need before the food spoils.</p>
+
+        <div class="map-container">
+<!--           <div id="pie-chart6" class="berkeley-pies7"></div>
+          <p>Indicates a homeless person and how long they've been there.</p>  -->
+          <img id="berkeley-map" src="static/assets/Berkeley_map.png" alt="Berkeley-map"></img>
+          <div id="pie-chart1" class="berkeley-pies1"></div>
+          <div id="pie-chart2" class="berkeley-pies3"></div>
+          <div id="pie-chart3" class="berkeley-pies4"></div>
+          <div id="pie-chart4" class="berkeley-pies5"></div>
+          <div id="pie-chart5" class="berkeley-pies6"></div>
+        </div>
         
       </div>
     </div>
@@ -377,16 +409,16 @@
       // Code heavily influenced by: http://bl.ocks.org/exakte-aesthetik/159def5c0e6534a039fb
       var setupChart = {
         "margin": {
-          "top": -100,
+          "top": -10,
           "right": 0,   //original: 50
           "bottom": 10,
-          "left": -100     //original: 50
+          "left": -10     //original: 50
         },
-        width:  function() {return 1000 - this.margin.left - this.margin.right;},  //original: 960
-        height: function() {return 750 - this.margin.top - this.margin.bottom;},  //original: 500
+        width:  function() {return 100 - this.margin.left - this.margin.right;},  //original: 960
+        height: function() {return 75 - this.margin.top - this.margin.bottom;},  //original: 500
         radius: function() {return this.height()/2;},
-        "radiusRing": 100,
-        "ringDistance": -50,
+        "radiusRing": 10,
+        "ringDistance": -2,
       };
 
       var colorBlue = d3.scale.ordinal()
@@ -429,7 +461,7 @@
 
       // Draw
 
-      var svg = d3.select("#pie-chart").append("svg")  //originally: body
+      var svg1 = d3.select("#pie-chart1").append("svg")  //originally: body
       .attr("width", setupChart.width() + setupChart.margin.left + setupChart.margin.right)
       .attr("height", setupChart.height() + setupChart.margin.top + setupChart.margin.bottom)
       // .attr("id", "pie-chart")  //I added this
@@ -440,7 +472,77 @@
       .attr("class", "center")
       .attr("transform", "translate(" + setupChart.width()/2 + "," +setupChart.height()/2 + ")");
 
-      update();
+      update(colorBlue, svg1);
+      console.log("made it through first update")
+
+      var svg2 = d3.select("#pie-chart2").append("svg")  //originally: body
+      .attr("width", setupChart.width() + setupChart.margin.left + setupChart.margin.right)
+      .attr("height", setupChart.height() + setupChart.margin.top + setupChart.margin.bottom)
+      // .attr("id", "pie-chart")  //I added this
+      .append("g")
+      .attr("class", "chart")
+      .attr("transform", "translate(" + setupChart.margin.left + "," + setupChart.margin.top + ")")
+      .append("g")
+      .attr("class", "center")
+      .attr("transform", "translate(" + setupChart.width()/2 + "," +setupChart.height()/2 + ")");
+
+      update(colorBlue, svg2);
+      console.log("made it through first update")
+
+      var svg3 = d3.select("#pie-chart3").append("svg")  //originally: body
+      .attr("width", setupChart.width() + setupChart.margin.left + setupChart.margin.right)
+      .attr("height", setupChart.height() + setupChart.margin.top + setupChart.margin.bottom)
+      // .attr("id", "pie-chart")  //I added this
+      .append("g")
+      .attr("class", "chart")
+      .attr("transform", "translate(" + setupChart.margin.left + "," + setupChart.margin.top + ")")
+      .append("g")
+      .attr("class", "center")
+      .attr("transform", "translate(" + setupChart.width()/2 + "," +setupChart.height()/2 + ")");
+
+      update(colorBlue, svg3);
+      console.log("made it through first update")
+
+      var svg4 = d3.select("#pie-chart4").append("svg")  //originally: body
+      .attr("width", setupChart.width() + setupChart.margin.left + setupChart.margin.right)
+      .attr("height", setupChart.height() + setupChart.margin.top + setupChart.margin.bottom)
+      // .attr("id", "pie-chart")  //I added this
+      .append("g")
+      .attr("class", "chart")
+      .attr("transform", "translate(" + setupChart.margin.left + "," + setupChart.margin.top + ")")
+      .append("g")
+      .attr("class", "center")
+      .attr("transform", "translate(" + setupChart.width()/2 + "," +setupChart.height()/2 + ")");
+
+      update(colorBlue, svg4);
+      console.log("made it through first update")
+
+      var svg5 = d3.select("#pie-chart5").append("svg")  //originally: body
+      .attr("width", setupChart.width() + setupChart.margin.left + setupChart.margin.right)
+      .attr("height", setupChart.height() + setupChart.margin.top + setupChart.margin.bottom)
+      // .attr("id", "pie-chart")  //I added this
+      .append("g")
+      .attr("class", "chart")
+      .attr("transform", "translate(" + setupChart.margin.left + "," + setupChart.margin.top + ")")
+      .append("g")
+      .attr("class", "center")
+      .attr("transform", "translate(" + setupChart.width()/2 + "," +setupChart.height()/2 + ")");
+
+      update(colorBlue, svg5);
+      console.log("made it through first update")
+
+      var svg6 = d3.select("#pie-chart6").append("svg")  //originally: body
+      .attr("width", setupChart.width() + setupChart.margin.left + setupChart.margin.right)
+      .attr("height", setupChart.height() + setupChart.margin.top + setupChart.margin.bottom)
+      // .attr("id", "pie-chart")  //I added this
+      .append("g")
+      .attr("class", "chart")
+      .attr("transform", "translate(" + setupChart.margin.left + "," + setupChart.margin.top + ")")
+      .append("g")
+      .attr("class", "center")
+      .attr("transform", "translate(" + setupChart.width()/2 + "," +setupChart.height()/2 + ")");
+
+      update(colorBlue, svg6);
       console.log("made it through first update")
 
       
@@ -519,7 +621,7 @@
         return [timeObject,timeObjectSub ];
       };
 
-      function update(colorFunc){   //time was added in by me
+      function update(colorFunc, svg){   //time was added in by me
         console.log('in update function')
         // Hours
 
