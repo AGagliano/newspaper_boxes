@@ -18,7 +18,7 @@ def on_boot():
 
 #~ Get sound data from microphone
 @app.route('/_get_sound')
-def get_sound():
+def get_sound_func():
     sound = microphone_level.get_sound(inp)
     return jsonify(result=sound)
     
