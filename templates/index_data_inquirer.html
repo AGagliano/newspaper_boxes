@@ -89,9 +89,9 @@
           if (force_val_new == 1 && force_val != 1) {
             startTime = new Date();
           };
-        //   if (force_val == 0) {              ///I don't think I need this if statement
-			     // startTime = new Date();
-		      // };
+	  if (force_val == 0) {              ///I don't think I need this if statement
+	    startTime = new Date();
+	  };
           force_val = force_val_new;
         });
         updateSoundGraph(sound);
