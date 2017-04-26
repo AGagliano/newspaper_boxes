@@ -66,6 +66,7 @@ def run():
 				
 				
 				if dist1 < dist_thresh or dist2 < dist_thresh:
+					print('play audio')
 					#f.write("play audio\n")
 					play("Audio/extra_extra_short.mp3")
 			
@@ -74,7 +75,7 @@ def run():
 			
 	
 	except KeyboardInterrupt:
-		print("Measurement stopped by User")
+		#print("Measurement stopped by User")
 		GPIO.cleanup()
 
 	
