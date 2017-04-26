@@ -1,5 +1,6 @@
 import RPi.GPIO as GPIO
 import time
+import sys
 
 def setup():
 	GPIO.setmode(GPIO.BCM)
@@ -7,10 +8,10 @@ def setup():
 	GPIO.setup(4, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 def get_force_read():
-	print('in force function')
+	#print('in force function')
 	input_state = GPIO.input(4)
 	if input_state == 0:
-		print("Mat pressed")
+		#print("Mat pressed")
 		return({'force_status': 1})
 	else:
 		return({'force_status': 0})
