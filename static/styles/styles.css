@@ -118,13 +118,13 @@
 
 .subheader-text {
 	float: left;
-	width: 49%;
+	width: 52%;
 	text-align: center;
 }
 
 .subheader-date {
 	float: left;
-	width: 25%;
+	width: 22%;
 	text-align: right;
 }
 
@@ -149,8 +149,7 @@
 
 .video-section-dd {
 	width: 100%;
-	height: 32%;
-	padding-top: 5%;
+	height: 27%;
 	/*background-color: gray;*/
 }
 
@@ -215,14 +214,6 @@
 .force-and-sound-section {
 	width: 100%;
 	height: 50%;
-	/*background-color: gray;*/
-	/*display: table;*/
-	/*display: inline-block;*/
-}
-
-.force-and-sound-section-dd {
-	width: 100%;
-	height: 45%;
 	/*background-color: gray;*/
 	/*display: table;*/
 	/*display: inline-block;*/

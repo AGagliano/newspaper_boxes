@@ -27,6 +27,14 @@
     </script>
 
     <script type=text/javascript>
+      // $(function() {
+      //   $('a#calculate').bind('click', function() {
+      //     $.getJSON($SCRIPT_ROOT + '/_get_time', function(data) {
+      //       $("#result").text(data.result);
+      //     });
+      //     return false;
+      //   });
+      // });
 
       //Set global variables so they can be updated in, but accessed outside of .getJSON
       var force_test = 0;
@@ -81,14 +89,16 @@
           if (force_val_new == 1 && force_val != 1) {
             startTime = new Date();
           };
-      	  if (force_val == 0) {              
-      	    startTime = new Date();
-      	  };
+	  if (force_val == 0) {              ///I don't think I need this if statement
+	    startTime = new Date();
+	  };
           force_val = force_val_new;
         });
-        // updateSoundGraph(sound_test);
         updateSoundGraph(sound);
-
+        // updateSoundGraph(sound_test);    ////For fake sensor testing
+        // console.log(timeArray);
+        // console.log(typeof timeArray);
+        // update(time);
         time = setTimeDiff(startTime);
         console.log("Time:");
         console.log(time);
@@ -222,7 +232,7 @@
         <div class="light-line"></div>
         <div class="subheader-container-di font-di-subheader">
           <h class="subheader-volume">Vol. IV, No. 3</h>
-          <h class="subheader-text">Improving our city one sensor at a time</h>
+          <h class="subheader-text">Protecting our city one sensor at a time</h>
           <h class="subheader-date"><span id="today-date"></span></h>
         </div>
         <div class="dark-line"></div>
@@ -244,7 +254,7 @@
     <!-- line -->
     <div class="force-and-sound-section">
       <div class="force-element">
-        <h class="font-color font-di-title1">Loitering Decreases</h>
+        <h class="font-color font-di-title1">LOITERING DECREASES</h>
         <p class="font-di-text1">Sensors on sidewalks and benches allow for real-time detection of loitering.</p>
         <div class="pie-chart-container">
           <div class="pie-text-box">
@@ -255,9 +265,9 @@
         
       </div>
       <div class="sound-element">
-        <h class="font-color font-di-title1">Protest detection</h>
+        <h class="font-color font-di-title1">PROTEST detection</h>
         <div id="graph" class="aGraph" ></div>
-        <p class="font-di-text1" id="protest-counter">Latest protest activity was <br>today</p>
+        <p class="font-di-text1" id="protest-counter">Latest protest activity was <br>13 days ago</p>
         <p class="font-di-text1">Noise level sensors inform the Berkeley City Police Department when there is protest activity.</p>
         
       </div>

@@ -27,6 +27,14 @@
     </script>
 
     <script type=text/javascript>
+      // $(function() {
+      //   $('a#calculate').bind('click', function() {
+      //     $.getJSON($SCRIPT_ROOT + '/_get_time', function(data) {
+      //       $("#result").text(data.result);
+      //     });
+      //     return false;
+      //   });
+      // });
 
       //Set global variables so they can be updated in, but accessed outside of .getJSON
       var force_test = 0;
@@ -68,7 +76,7 @@
           // Might to only check every few iterations to remove noise
           // If person steps on mat, start timer
           
-          // ///////Uncomment for fake sensor testing////////////////
+          ///////Uncomment for fake sensor testing////////////////
           // if (force_test_new == 1 && force_test != 1) {
           //   startTime = new Date();
           // };
@@ -83,7 +91,6 @@
           console.log(sound);
           $("#sound").text(sound);
         });
-
         // No need to get force data, because randomly generated data for the homeless image
         // $.getJSON($SCRIPT_ROOT + '/_get_force', function(data) {
         //   force_val_new = data.result['force_status'];
@@ -99,9 +106,10 @@
         //   force_val = force_val_new;
         //   elapsedTime();
         // });
-        // updateSoundGraph(sound_test);
         updateSoundGraph(sound);
-
+        // console.log(timeArray);
+        // console.log(typeof timeArray);
+        // update(time);
         time = setTimeDiff(startTime1);
         update(colorRed, svg1);
         time = setTimeDiff(startTime2);
@@ -114,7 +122,32 @@
         update(colorRed, svg5);
         time = setTimeDiff(startTime6);
         update(colorRed, svg6);
+        // console.log("Time:");
+        // console.log(time);
+        // console.log("End time");
+        // var seconds = time["0"].second
+        // var minutes = time["0"].minute
+        // console.log(minutes);
 
+        // if (minutes == 0) {
+        //   if (seconds > 10) {     //Update after 10 seconds
+        //     $("#loitering_time").html('<p>You are loitering! <br>' + ' '+ minutes + ':' + minTwoDigits(seconds) + ' </p>');
+        //     update(colorRed, svg1); 
+        //     update(colorRed, svg2); 
+        //     update(colorRed, svg3); 
+        //     update(colorRed, svg4);
+        //     update(colorRed, svg5);  
+        //   } else {
+        //     $("#loitering_time").html('<p>You have been here <br>' + seconds + ' seconds</p>');
+        //     update(colorBlue, svg1);
+        //     update(colorBlue, svg2);
+        //     update(colorBlue, svg3);
+        //     update(colorBlue, svg4);
+        //     update(colorBlue, svg5);
+        //   };
+        // } else {
+        //   $("#loitering_time").html('<p>You are loitering! <br>' + ' '+ minutes + ':' + minTwoDigits(seconds) + ' </p>');
+        // };
         $('#today-date').html('<h> ' + days[todayDate.getDay()] + ', ' + months[todayDate.getMonth()] + ' ' + todayDate.getDate() + ', 2020</h>');
 
       }, 300)
@@ -227,7 +260,7 @@
       <div class="extradark-line"></div>
       <img id="dailydata-logo" src="static/assets/DailyData_Header_10x.png" alt="Data-Inquirer">
       <div class="subheader-container-dd font-dd-subheader">
-        <h class="subheader-text-dd">Protecting our city one sensor at a time</h>
+        <h class="subheader-text-dd">IMPROVING OUR CITY ONE SENSOR AT A TIME</h>
         <h class="subheader-date-dd"><span id="today-date"></span></h>
       </div>
       <div class="extradark-line"></div>
@@ -237,7 +270,7 @@
       
       <div class="video-text-element-dd">
         <h1 class="font-color dd-headline">Image Recognition Prevents Flooding</h1>
-        <p class="font-dd-text1">New image recognition software detects early flooding on city and neighborhood streets in light of recent storm weather. With this technology, the City of Berkely will be able to respond quickly to unsafe situations and better design roads.</p>
+        <p class="font-dd-text1">New image recognition software detects early flooding on city and neighborhood streets in light of recent storm weather.</p>
       </div>
       <div class="video-stream-element-dd">
          <iframe allowfullscreen webkitallowfullscreen mozallowfullscreen src="https://video.nest.com/embedded/live/J5skYH6fkV" frameborder="0" width="925" height="520.3125"></iframe>    
@@ -248,11 +281,11 @@
     </div>
     <div class="dark-line-short"></div>
     <!-- line -->
-    <div class="force-and-sound-section-dd">
+    <div class="force-and-sound-section">
       
       <div class="sound-element-dd">
-        <div id="graph" class="aGraph" ></div>
         <h class="font-color font-di-title1">Pedestrian Safety</h>
+        <div id="graph" class="aGraph" ></div>
         <p class="font-dd-text1">Noise level, vibration detection, and pedestrian counts are being used to automatically adjust speed limits and traffic limits for safety.</p>
         
       </div>
