@@ -54,7 +54,7 @@ def run(print_bool):
 	if print_bool == True:
 		print('force pins setup')	
 
-	dist_thresh = 100 #Anything less than 1 m away and the extra extra sound will play
+	dist_thresh = 50 #Anything less than 1 m away and the extra extra sound will play
 	
 	#with open('distance_printout.txt', 'w') as f:
 	try: 
