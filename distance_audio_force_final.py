@@ -44,11 +44,12 @@ def run(print_bool):
 	GPIO.setup(GPIO_ECHO1, GPIO.IN)
 	GPIO.setup(GPIO_TRIGGER2, GPIO.OUT)
 	GPIO.setup(GPIO_ECHO2, GPIO.IN)
+
+	count = 0
 	
 	if print_bool == True:
 		print('proximity sensor pins set up')
 
-		
 	force.setup()
 	
 	if print_bool == True:
@@ -78,9 +79,19 @@ def run(print_bool):
 				
 				if dist1 < dist_thresh or dist2 < dist_thresh:
 					if print_bool == True:
-						print('play audio')
+						print('Play extra extra audio')
 					#f.write("play audio\n")
 					play("Audio/extra_extra_short.mp3")
+			#Add to the count that the person is still standing on the mat
+			else: 
+				count += 1
+			if print_bool == True:
+				print('Count: ', count)
+			if count > 60000: #I'll need to massage this threshold tomorrow
+				play("Audio/example.mp3")
+				if print_bool == True:
+					print('Playing the loitering too long message')
+				count = 0 
 			
 			
 			time.sleep(1)
