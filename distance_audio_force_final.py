@@ -87,8 +87,8 @@ def run(print_bool):
 				count += 1
 			if print_bool == True:
 				print('Count: ', count)
-			if count > 60000: #I'll need to massage this threshold tomorrow
-				play("Audio/example.mp3")
+			if count > 60: #I'll need to massage this threshold tomorrow
+				play("Audio/loitering1.mp3")
 				if print_bool == True:
 					print('Playing the loitering too long message')
 				count = 0 
