@@ -70,6 +70,7 @@ def run(print_bool, experience):
 			#If no one is standing on mat, detect distance and play audio accordingly
 			if force_val != 1:
 				count = 0
+				experience = random.randint(1,3)
 				dist1 = distance(GPIO_TRIGGER1, GPIO_ECHO1)
 				if print_bool == True:
 					print("Measured distance1 = %.1f cm" % dist1)
@@ -139,9 +140,11 @@ def run(print_bool, experience):
 if __name__ == "__main__":
 	try:
 		print_bool = sys.argv[1]  #on system run, type true or false boolean (True or False)
-		experience = sys.argv[2]  #on system run, type 1, 2, or 3 for different experiences, or leave blank for random.
 	except:
 		print_bool = False
+	try:
+		experience = sys.argv[2]  #on system run, type 1, 2, or 3 for different experiences, or leave blank for random.
+	except:
 		experience = random.randint(1, 3)
 	if print_bool == 'True':
 		print_bool = True
