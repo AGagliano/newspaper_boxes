@@ -120,13 +120,10 @@ def run(print_bool, experience):
 					if print_bool == True:
 						print('Count: ', count)
 					if count == 20: #I'll need to massage this threshold tomorrow
-						play("Audio/loitering1.mp3") ######put in mp3 file
+						play("Audio/what_do_you_think.mp3") ######put in mp3 file
 						if print_bool == True:
 							print('Playing the what do you think about me message')
-					if count == 60: #I'll need to massage this threshold tomorrow
-						play("Audio/loitering1.mp3")  #######mp3 file to be added
-						if print_bool == True:
-							print('Playing the how do you think I collect data message')
+					
 			
 			time.sleep(1)
 			
